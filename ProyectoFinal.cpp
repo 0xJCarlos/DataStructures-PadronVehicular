@@ -82,11 +82,11 @@ else { //Else
     ultimo = nuevo;
 } //Fin de Else
 cout<<"\n Vehiculo registrado \n\n";
- //Fin función insertar vehiculo
+} //Fin función InsertarVehiculo
+/////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int main(){ //Función principal
- insertarVehiculo(); //Probando la función de insertar Vehiculo
-}; //Fin función principal
+int main(){ //Función main
+ insertarVehiculo(); //Probando funcion insertarVehiculo
+};  //Fin funcion main
 
