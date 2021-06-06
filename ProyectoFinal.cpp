@@ -17,9 +17,9 @@ struct vehiculo { //Estructura
     int infracciones;
     vehiculo* siguiente;
     vehiculo* atras;
-} *primero, *ultimo;// Estructura
+} *primero, *ultimo;// Fin Estructura
 
-void nombreLogo(){
+void nombreLogo(){ //Funcion para mostrar el nombre y logo del programa
  cout<<"                                                        _________________________   \n";
  cout<<"                   /\\      _____          _____       |   |     |     |    | |  \   \n";
  cout<<"    ,-----,       /  \\____/__|__\_    ___/__|__\___   |___|_____|_____|____|_|___\ \n";
@@ -27,9 +27,9 @@ void nombreLogo(){
  cout<<"==(o)-----(o)==J    `(o)-------(o)=   `(o)------(o)'   `--(o)(o)--------------(o)--' \n";
  cout<<"`````````````````````````````````````````````````````````````````````````````````````\n";
  cout<<"          P   A   D   R   O   N            V   E   H   I   C   U   L   A   R   ";
-};
+}; //Fin Funcion
 
-void menu(){
+void menu(){ //Función que despliega el menú
 int opc;
 cout<<"\n\nMenu de opciones: \n\n";
 cout<<"1. Dar de alta un nuevo vehiculo\n";
@@ -46,11 +46,12 @@ cout<<"11. Buscar por propietario\n";
 cout<<"12. Salir del programa\n";
 cout<<"\nSeleccione la opcion a realizar: ";
 cin>>opc;
-}
+} //Fin función menu
 
-void insertarVehiculo(){
+void insertarVehiculo(){ //Función para insertar un nuevo elemento al inicio de la lista
 
-vehiculo* nuevo = new vehiculo();
+vehiculo* nuevo = new vehiculo(); //Reserva memoria para un nuevo vehiculo
+
 cout<<"Ingresa el modelo del vehiculo: ";
 cin>> nuevo->modelo;
 cout<<"Ingresa el año del vehiculo: ";
@@ -68,21 +69,24 @@ cin>> nuevo->tenencia;
 cout<<"Ingresa la cantidad de infracciones que tiene el vehiculo: ";
 cin>> nuevo->infracciones;
 
-if (primero == NULL){
+if (primero == NULL){ //If
     primero= nuevo;
     primero->siguiente = NULL;
     primero->atras = NULL;
     ultimo = primero;
-}
-else {
+} //Fin de If
+else { //Else
     ultimo->siguiente = nuevo;
     nuevo->siguiente = NULL;
     nuevo->atras = ultimo;
     ultimo = nuevo;
-}
+} //Fin de Else
 cout<<"\n Vehiculo registrado \n\n";
-}
-int main(){
- insertarVehiculo();
-};
+ //Fin función insertar vehiculo
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int main(){ //Función principal
+ insertarVehiculo(); //Probando la función de insertar Vehiculo
+}; //Fin función principal
 
