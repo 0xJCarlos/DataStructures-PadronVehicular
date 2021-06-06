@@ -53,17 +53,17 @@ void insertarVehiculo(){ //Función para insertar un nuevo elemento al inicio de 
 vehiculo* nuevo = new vehiculo(); //Reserva memoria para un nuevo vehiculo
 
 cout<<"Ingresa el modelo del vehiculo: ";
-cin>> nuevo->modelo;
+cin.getline(nuevo->modelo,20,'\n');
 cout<<"Ingresa el año del vehiculo: ";
-cin>> nuevo->anio;
+cin>>nuevo->anio;
 cout<<"Ingresa el numero de puertas del vehiculo: ";
-cin>> nuevo->noPuertas;
+cin>>nuevo->noPuertas;
 cout<<"Ingresa el color del vehiculo: ";
-cin>> nuevo->color;
+cin>>nuevo->color;
 cout<<"Ingresa las placas del vehiculo: ";
-cin>> nuevo->placas;
+cin>>nuevo->placas;
 cout<<"Ingresa el nombre del propietario del vehiculo: ";
-cin>> nuevo->propietario;
+cin.getline(nuevo->propietario,20,'\n');
 cout<<"Ingresa la cantidad de tenencia del vehiculo: ";
 cin>> nuevo->tenencia;
 cout<<"Ingresa la cantidad de infracciones que tiene el vehiculo: ";
@@ -81,7 +81,7 @@ else { //Else
     nuevo->atras = ultimo;
     ultimo = nuevo;
 } //Fin de Else
-cout<<"\n Vehiculo registrado \n\n";
+cout<<"\nVehiculo registrado\n\n";
 } //Fin función InsertarVehiculo
 /////////////////////////////////////////////////////////////////////////////////////////
 
