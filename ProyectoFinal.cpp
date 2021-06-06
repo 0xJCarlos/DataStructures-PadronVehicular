@@ -62,6 +62,7 @@ cout<<"Ingresa el color del vehiculo: ";
 cin>>nuevo->color;
 cout<<"Ingresa las placas del vehiculo: ";
 cin>>nuevo->placas;
+cin.ignore(1,'\n');
 cout<<"Ingresa el nombre del propietario del vehiculo: ";
 cin.getline(nuevo->propietario,20,'\n');
 cout<<"Ingresa la cantidad de tenencia del vehiculo: ";
