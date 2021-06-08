@@ -5,6 +5,7 @@
 #include <iostream>
 using namespace std;
 
+void insertarVehiculo(void);
 
 struct vehiculo { //Estructura
     char modelo[20];
@@ -44,31 +45,53 @@ cout<<"9. Buscar por color\n";
 cout<<"10. Buscar por placas\n";
 cout<<"11. Buscar por propietario\n";
 cout<<"12. Salir del programa\n";
+
+} //Fin función menu
+
+void escogerMenu(char opc){
 cout<<"\nSeleccione la opcion a realizar: ";
 cin>>opc;
-} //Fin función menu
+
+switch(opc) {
+case 1:
+    insertarVehiculo();
+    break;
+case 2:
+    cout<<"Aun no hay una función para eso lol";
+    break;
+
+}
+
+
+}
+
+
+
 
 void insertarVehiculo(){ //Función para insertar un nuevo elemento al inicio de la lista
 
 vehiculo* nuevo = new vehiculo(); //Reserva memoria para un nuevo vehiculo
 
-cout<<"Ingresa el modelo del vehiculo: ";
-cin.getline(nuevo->modelo,20,'\n');
-cout<<"Ingresa el año del vehiculo: ";
-cin>>nuevo->anio;
-cout<<"Ingresa el numero de puertas del vehiculo: ";
-cin>>nuevo->noPuertas;
-cout<<"Ingresa el color del vehiculo: ";
-cin>>nuevo->color;
-cout<<"Ingresa las placas del vehiculo: ";
-cin>>nuevo->placas;
-cin.ignore(1,'\n');
-cout<<"Ingresa el nombre del propietario del vehiculo: ";
-cin.getline(nuevo->propietario,20,'\n');
-cout<<"Ingresa la cantidad de tenencia del vehiculo: ";
-cin>> nuevo->tenencia;
-cout<<"Ingresa la cantidad de infracciones que tiene el vehiculo: ";
-cin>> nuevo->infracciones;
+    cout<<"Ingresa el modelo del vehiculo: ";
+    cin.ignore();
+    cin.getline(nuevo->modelo,20,'\n');
+    cout<<"Ingresa el año del vehiculo: ";
+    cin>>nuevo->anio;
+    cout<<"Ingresa el numero de puertas del vehiculo: ";
+    cin>>nuevo->noPuertas;
+    cout<<"Ingresa el color del vehiculo: ";
+    cin>>nuevo->color;
+    cin.ignore(1,'\n');
+    cout<<"Ingresa las placas del vehiculo: ";
+    cin>>nuevo->placas;
+    cin.ignore(1,'\n');
+    cout<<"Ingresa el nombre del propietario del vehiculo: ";
+    cin.ignore(1,'\n');
+    cin.getline(nuevo->propietario,20,'\n');
+    cout<<"Ingresa la cantidad de tenencia del vehiculo: ";
+    cin>> nuevo->tenencia;
+    cout<<"Ingresa la cantidad de infracciones que tiene el vehiculo: ";
+    cin>> nuevo->infracciones;
 
 if (primero == NULL){ //If
     primero= nuevo;
@@ -84,10 +107,36 @@ else { //Else
 } //Fin de Else
 cout<<"\nVehiculo registrado\n\n";
 } //Fin función InsertarVehiculo
+
+void consultarLista(){
+vehiculo* actual = new vehiculo();
+actual = primero;
+if (primero != NULL){
+    while(actual != NULL){
+        cout<<"\nModelo: "<<actual->modelo;
+        cout<<"\nAño: "<<actual->anio;
+        cout<<"\nNo. de puertas: "<<actual->noPuertas;
+        cout<<"\nColor: "<<actual->color;
+        cout<<"\nPlacas: "<<actual->placas;
+        cout<<"\nPropietario: "<<actual->propietario;
+        cout<<"\nTenencia: "<<actual->tenencia;
+        cout<<"\nInfracciones: "<<actual->infracciones;
+        cout<<"\n----------------------------------------";
+        actual = actual->siguiente;
+    }
+}
+else {
+    cout<<"\nLa lista esta vacia. Por favor agrega vehiculos";
+}
+
+}
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
 int main(){ //Función main
- insertarVehiculo(); //Probando funcion insertarVehiculo
+insertarVehiculo();
+insertarVehiculo();
+consultarLista();
+
 };  //Fin funcion main
 
