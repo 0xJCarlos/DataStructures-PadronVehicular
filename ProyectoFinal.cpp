@@ -156,6 +156,33 @@ if (primero != NULL){
 
 void consultarLista(){ //Función para consultar toda la lista
 
+void filtrarPorNum(){ //Filtra por ID *Cambiar para que acepte cualquier dato numerico de la estructura de vehiculos.
+vehiculo *actual = new vehiculo();
+actual = primero;
+bool encontrado = false;
+int vehiculoBuscado = 0;
+
+cout<<"Ingrese el ID del vehiculo a buscar: ";
+cin>>vehiculoBuscado;
+
+if (primero != NULL){
+    while (actual != NULL && encontrado != true){
+
+        if (actual->ID == vehiculoBuscado){
+            cout<<"\nEl vehiculo con el ID "<<vehiculoBuscado<<" ha sido encontrado.\n";
+            //AQUI PONER EL COUT DE TODOS LOS ELEMENTOS DEL CARRO TIPO actual->modelo y asi
+            encontrado = true;
+        }
+        actual = actual->siguienteM
+    }
+    if (!encontrado){
+        cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
+    }
+}
+else {
+    cout<<"\nLa lista esta vacia.\n";
+}
+}
 vehiculo* actual = new vehiculo();
 actual = primero;
 if (primero != NULL){
