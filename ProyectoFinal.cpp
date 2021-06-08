@@ -8,6 +8,7 @@ using namespace std;
 void insertarVehiculo(void);
 
 struct vehiculo { //Estructura
+    int ID;
     char modelo[20];
     int anio;
     int noPuertas;
@@ -65,9 +66,6 @@ case 2:
 
 }
 
-
-
-
 void insertarVehiculo(){ //Función para insertar un nuevo elemento al inicio de la lista
 
 vehiculo* nuevo = new vehiculo(); //Reserva memoria para un nuevo vehiculo
@@ -108,7 +106,56 @@ else { //Else
 cout<<"\nVehiculo registrado\n\n";
 } //Fin función InsertarVehiculo
 
-void consultarLista(){
+void eliminarVehiculo(){ //Función para eliminar un vehiculo buscandolo por su ID.
+vehiculo* actual = new vehiculo();
+actual = primero;
+vehiculo* anterior = new vehiculo();
+anterior = NULL;
+
+int vehiculoBuscado = 0;
+bool encontrado = false;
+
+cout<<"Ingresa el dato del Vehiculo a buscar para eliminar: ";
+cin>>vehiculoBuscado;
+
+if (primero != NULL){
+    while (actual != NULL && encontrado != true){
+        if (actual->ID == vehiculoBuscado){
+            cout<<"\nVehiculo con el ID "<<vehiculoBuscado<<" encontrado.\n";
+
+            if (actual == primero){
+                primero = primero->siguiente;
+                primero->atras = NULL;
+            }
+            else if (actual == ultimo){
+                anterior->siguiente = NULL;
+                ultimo = anterior;
+            }
+            else {
+                anterior->siguiente = actual->siguiente;
+                actual->siguiente->atras = anterior;
+            }
+
+            cout<<"\nVehiculo eliminado.";
+            encontrado = true;
+        }
+        anterior = actual;
+        actual = actual->siguiente;
+    }
+    if (!encontrado){
+        cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
+    }
+    else {
+        cout<<"\nLa lista esta vacia.\n\n";
+    }
+}
+
+
+
+}
+
+void consultarLista(){ //Función para consultar toda la lista
+
 vehiculo* actual = new vehiculo();
 actual = primero;
 if (primero != NULL){
