@@ -155,7 +155,7 @@ if (primero != NULL){
 }
 
 void consultarLista(){ //Función para consultar toda la lista
-
+}
 void filtrarPorNum(){ //Filtra por ID *Cambiar para que acepte cualquier dato numerico de la estructura de vehiculos.
 vehiculo *actual = new vehiculo();
 actual = primero;
@@ -173,7 +173,7 @@ if (primero != NULL){
             //AQUI PONER EL COUT DE TODOS LOS ELEMENTOS DEL CARRO TIPO actual->modelo y asi
             encontrado = true;
         }
-        actual = actual->siguienteM
+        actual = actual->siguiente;
     }
     if (!encontrado){
         cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
@@ -200,7 +200,7 @@ if (primero != NULL){
     }
 }
 else {
-    cout<<"\nLa lista esta vacia. Por favor agrega vehiculos";
+    cout<<"\nLa lista esta vacia. Por favor agrega vehiculos.";
 }
 
 }
