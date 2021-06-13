@@ -19,7 +19,7 @@ struct vehiculo { //Estructura
     int infracciones;
     vehiculo* siguiente;
     vehiculo* atras;
-} *primero = NULL, *ultimo = NULL;// Fin Estructura
+} *primero, *ultimo;// Fin Estructura
 
 void nombreLogo(){ //Funcion para mostrar el nombre y logo del programa
  cout<<"                                                        _________________________   \n";
@@ -114,11 +114,21 @@ if (primero != NULL){ //If primero != NULL
         if (actual->ID == vehiculoBuscado){ //If ID == vehiculoBuscado
             cout<<"\nVehiculo con el ID "<<vehiculoBuscado<<" encontrado.\n";
 
+            if (actual == primero && actual->siguiente == NULL){
+                cout<<"xd";
+                primero = NULL;
+                actual = NULL;
+                cout<<"Vehiculo eliminado exitosamente fierro.";
+                return;
+                break;
+            }
+            else {
             if (actual == primero){ //If actual == primero
                 primero = primero->siguiente;
                 primero->atras = NULL;
                 cout<<"aqui 1";
-            } //Fin If actual == primero
+            }
+             //Fin If actual == primeros
             else if (actual == ultimo){ //Else if actual == ultimo
                 anterior->siguiente = NULL;
                 ultimo = anterior;
@@ -130,10 +140,11 @@ if (primero != NULL){ //If primero != NULL
                 cout<<"aqui 3";
             } //Fin else
 
-            cout<<"\nVehiculo eliminado.";
+            cout<<"\nVehiculo eliminado.\n";
             encontrado = true;
             return;
-        } //Fin If ID == vehiculoBuscado
+
+         //Fin If ID == vehiculoBuscado
         anterior = actual;
         actual = actual->siguiente;
     } //Fin while
@@ -141,14 +152,14 @@ if (primero != NULL){ //If primero != NULL
         cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
         return;
     }//Fin if no encontrado
-
-} //If primero != NULL FIN
+    }
+}} //If primero != NULL FIN
 else {//Else lista vacia
     cout<<"\nLa lista esta vacia.\n\n";
     return;
     }//Fin else lista vacia
-
-} //FIN FUNCION
+}
+//FIN FUNCION
 
 void consultarLista(){ //Función para consultar toda la lista
 
