@@ -115,53 +115,56 @@ if (primero != NULL){ //If primero != NULL
             cout<<"\nVehiculo con el ID "<<vehiculoBuscado<<" encontrado.\n";
 
             if (actual == primero && actual->siguiente == NULL){
-                cout<<"xd";
                 primero = NULL;
                 actual = NULL;
-                cout<<"Vehiculo eliminado exitosamente fierro.";
+                cout<<"Vehiculo eliminado.\n";
                 return;
                 break;
             }
             else {
-            if (actual == primero){ //If actual == primero
-                primero = primero->siguiente;
-                primero->atras = NULL;
-                cout<<"aqui 1";
+                if (actual == primero){ //If actual == primero
+                    primero = primero->siguiente;
+                    primero->atras = NULL;
+                    cout<<"aqui 1";
+                }
+                 //Fin If actual == primeros
+                else if (actual == ultimo){ //Else if actual == ultimo
+                    anterior->siguiente = NULL;
+                    ultimo = anterior;
+                    cout<<"aqui 2";
+                } //Fin else if actual == ultimo
+                else { //Else
+                    anterior->siguiente = actual->siguiente;
+                    actual->siguiente->atras = anterior;
+                    cout<<"aqui 3";
+                } //Fin else
+
+                cout<<"\nVehiculo eliminado.\n";
+                encontrado = true;
+                return;
+
             }
-             //Fin If actual == primeros
-            else if (actual == ultimo){ //Else if actual == ultimo
-                anterior->siguiente = NULL;
-                ultimo = anterior;
-                cout<<"aqui 2";
-            } //Fin else if actual == ultimo
-            else { //Else
-                anterior->siguiente = actual->siguiente;
-                actual->siguiente->atras = anterior;
-                cout<<"aqui 3";
-            } //Fin else
 
-            cout<<"\nVehiculo eliminado.\n";
-            encontrado = true;
-            return;
-
-         //Fin If ID == vehiculoBuscado
-        anterior = actual;
-        actual = actual->siguiente;
-    } //Fin while
+    }//FIN If actual == vehiculo buscado
+cout<<"bababoi";
+anterior = actual;
+actual = actual->siguiente;
+    }
     if (!encontrado){ //If no encontrado
         cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
         return;
-    }//Fin if no encontrado
+    //Fin if no encontrado
     }
-}} //If primero != NULL FIN
+//Fin while
+} //If primero != NULL FIN
 else {//Else lista vacia
     cout<<"\nLa lista esta vacia.\n\n";
     return;
     }//Fin else lista vacia
 }
-//FIN FUNCION
 
 void consultarLista(){ //Función para consultar toda la lista
+
 
 
     vehiculo* actual = new vehiculo();
@@ -497,7 +500,6 @@ system("cls");
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
-
 int main(){ //Función main
 int operacion;
 	//Declarar Variables
