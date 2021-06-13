@@ -13,13 +13,13 @@ struct vehiculo { //Estructura
     int anio;
     int noPuertas;
     char color[20];
-    char placas[7];
+    char placas[8];
     char propietario[20];
     float tenencia;
     int infracciones;
     vehiculo* siguiente;
     vehiculo* atras;
-} *primero, *ultimo;// Fin Estructura
+} *primero = NULL, *ultimo = NULL;// Fin Estructura
 
 void nombreLogo(){ //Funcion para mostrar el nombre y logo del programa
  cout<<"                                                        _________________________   \n";
@@ -109,45 +109,46 @@ system("cls");
 cout<<"Ingresa el ID del Vehiculo a buscar para eliminar: ";
 cin>>vehiculoBuscado;
 
-if (primero != NULL){
-    while (actual != NULL && encontrado != true){
-        if (actual->ID == vehiculoBuscado){
+if (primero != NULL){ //If primero != NULL
+    while (actual != NULL && encontrado != true){ //While
+        if (actual->ID == vehiculoBuscado){ //If ID == vehiculoBuscado
             cout<<"\nVehiculo con el ID "<<vehiculoBuscado<<" encontrado.\n";
 
-            if (actual == primero){
+            if (actual == primero){ //If actual == primero
                 primero = primero->siguiente;
                 primero->atras = NULL;
                 cout<<"aqui 1";
-            }
-            else if (actual == ultimo){
+            } //Fin If actual == primero
+            else if (actual == ultimo){ //Else if actual == ultimo
                 anterior->siguiente = NULL;
                 ultimo = anterior;
                 cout<<"aqui 2";
-            }
-            else {
+            } //Fin else if actual == ultimo
+            else { //Else
                 anterior->siguiente = actual->siguiente;
                 actual->siguiente->atras = anterior;
                 cout<<"aqui 3";
-            }
+            } //Fin else
 
             cout<<"\nVehiculo eliminado.";
             encontrado = true;
             return;
-        }
+        } //Fin If ID == vehiculoBuscado
         anterior = actual;
         actual = actual->siguiente;
-    }
-    if (!encontrado){
+    } //Fin while
+    if (!encontrado){ //If no encontrado
         cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
         return;
-    }
-    else {
-        cout<<"\nLa lista esta vacia.\n\n";
-        return;
-    }
-}
+    }//Fin if no encontrado
 
-}
+} //If primero != NULL FIN
+else {//Else lista vacia
+    cout<<"\nLa lista esta vacia.\n\n";
+    return;
+    }//Fin else lista vacia
+
+} //FIN FUNCION
 
 void consultarLista(){ //Función para consultar toda la lista
 
@@ -429,7 +430,7 @@ vehiculo *actual = new vehiculo();
 bool encontrado = false;
 int buscar = 0;
 actual = primero;
-char placasBuscadas[7];
+char placasBuscadas[8];
 system("cls");
 
     cout<<"Escribe la placa del vehiculo que quieres buscar: ";
@@ -438,7 +439,7 @@ system("cls");
     if (primero != NULL){
     while (actual != NULL && encontrado != true){
 
-        for (int i=0;i<7;i++){
+        for (int i=0;i<8;i++){
             if (actual->placas[i] == placasBuscadas[i]){
                 encontrado = true;
             }
