@@ -3,6 +3,9 @@
 //JUAN CARLOS SOLÓRZANO CASTANEDO
 //TDA: LDEA
 #include <iostream>
+#include <locale.h>
+#include <stdexcept>
+#include <limits>
 using namespace std;
 
 void insertarVehiculo(void);
@@ -20,6 +23,11 @@ struct vehiculo { //Estructura
     vehiculo* siguiente;
     vehiculo* atras;
 } *primero, *ultimo;// Fin Estructura
+
+void ignorarInput() { //Funcion usada en insertarVehiculo para ignorar datos no validos
+cin.clear();
+cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
 
 void nombreLogo(){ //Funcion para mostrar el nombre y logo del programa
  cout<<"                                                        _________________________   \n";
@@ -52,20 +60,55 @@ cout<<"4. Tenencia\n";
 cout<<"5. Numero de infracciones\n";
 }
 
+void easyFiltro(){
+vehiculo *actual = new vehiculo();
+bool encontrado = false;
+int buscar;
+actual = primero;
+
+
+encontrado = true;
+}
+
 void insertarVehiculo(){ //Función para insertar un nuevo elemento al inicio de la lista
 
 vehiculo* nuevo = new vehiculo(); //Reserva memoria para un nuevo vehiculo
 system("cls");
+
+do{ //INGRESAR ID
     cout<<"Ingresa el ID del vehiculo: ";
     cin.ignore();
     cin>>nuevo->ID;
+    if (0 > nuevo->ID || !cin){
+        ignorarInput();
+        cout<<"\nIntroduce un ID numerico mayor a 0\n\n";
+    }
+}
+while(0 > nuevo->ID); //FIN INGRESO ID
+
     cout<<"Ingresa el modelo del vehiculo: ";
     cin.ignore();
     cin.getline(nuevo->modelo,20,'\n');
+
+do{ //AÑO VEHICULO
     cout<<"Ingresa el año del vehiculo: ";
     cin>>nuevo->anio;
+    if (nuevo->anio < 1886){
+        ignorarInput();
+        cout<<"\nEl automovil se inventó en 1886, intentalo de nuevo.\n";
+    }
+    }
+while(nuevo->anio < 1886); //FIN AÑO VEHICULO
+
+do{
     cout<<"Ingresa el numero de puertas del vehiculo: ";
     cin>>nuevo->noPuertas;
+    if (nuevo->noPuertas < 1){
+        ignorarInput();
+        cout<<"\nUn vehiculo necesita por lo menos 1 puerta.\n";
+    }
+}
+while(nuevo->noPuertas < 0);
     cout<<"Ingresa el color del vehiculo: ";
     cin>>nuevo->color;
     cin.ignore(1,'\n');
@@ -75,10 +118,26 @@ system("cls");
     cout<<"Ingresa el nombre del propietario del vehiculo: ";
     cin.ignore(0,'\n');
     cin.getline(nuevo->propietario,20,'\n');
+
+do{ //TENENCIA
     cout<<"Ingresa la cantidad de tenencia del vehiculo: ";
     cin>> nuevo->tenencia;
+    if ( 0 > nuevo->tenencia){
+        ignorarInput();
+        cout<<"\nNo se puede tener tenencia negativa.\n";
+    }
+}
+while(0 > nuevo->tenencia); //FIN TENENCIA
+
+do{ //INFRACCIONES
     cout<<"Ingresa la cantidad de infracciones que tiene el vehiculo: ";
     cin>> nuevo->infracciones;
+    if (nuevo->infracciones < 0){
+        ignorarInput();
+        cout<<"\nNo se puede tener una cantidad negativa de infracciones.\n";
+    }
+}
+while (nuevo->infracciones < 0);//FIN INFRACCIONES
 
 if (primero == NULL){ //If
     primero= nuevo;
@@ -146,16 +205,16 @@ if (primero != NULL){ //If primero != NULL
             }
 
     }//FIN If actual == vehiculo buscado
-cout<<"bababoi";
+
 anterior = actual;
 actual = actual->siguiente;
-    }
+}//FIN WHILE
     if (!encontrado){ //If no encontrado
         cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
         return;
     //Fin if no encontrado
     }
-//Fin while
+
 } //If primero != NULL FIN
 else {//Else lista vacia
     cout<<"\nLa lista esta vacia.\n\n";
@@ -164,6 +223,11 @@ else {//Else lista vacia
 }
 
 void consultarLista(){ //Función para consultar toda la lista
+
+
+
+
+
 
 
 
@@ -189,9 +253,10 @@ void consultarLista(){ //Función para consultar toda la lista
         cout<<"\nLa lista esta vacia. Por favor agrega vehiculos\n";
     }
 }
-void filtrarPorNum(){ //Funcion que filtra por valor numerico
-vehiculo *actual = new vehiculo();
 
+void filtrarPorNum(){ //Funcion que filtra por valor numerico
+
+vehiculo *actual = new vehiculo();
 bool encontrado = false;
 int buscar = 0;
 
@@ -207,47 +272,38 @@ case 1: //CASE 1 ID
     cin>>datoBuscado;
 
     if (primero != NULL){
-    while (actual != NULL && encontrado != true){
+        while (actual != NULL && encontrado != true){
 
-        if (actual->ID == datoBuscado){
-            cout<<"\nEl vehiculo con el ID "<<datoBuscado<<" ha sido encontrado.\n";
-
-            vehiculo* actual = new vehiculo();
-            actual = primero;
-            if (primero != NULL){
-                while(actual != NULL){
-                    cout<<"\nID: "<<actual->ID;
-                    cout<<"\nModelo: "<<actual->modelo;
-                    cout<<"\nAño: "<<actual->anio;
-                    cout<<"\nNo. de puertas: "<<actual->noPuertas;
-                    cout<<"\nColor: "<<actual->color;
-                    cout<<"\nPlacas: "<<actual->placas;
-                    cout<<"\nPropietario: "<<actual->propietario;
-                    cout<<"\nTenencia: "<<actual->tenencia;
-                    cout<<"\nInfracciones: "<<actual->infracciones;
-                    cout<<"\n----------------------------------------\n";
-                    actual = actual->siguiente;
-                }
+            if (actual->ID != datoBuscado && actual->siguiente != NULL){
+                actual = actual->siguiente;
             }
-            else {
-                cout<<"\nLa lista esta vacia. Por favor agrega vehiculos.";
 
+            if (actual->ID == datoBuscado){
+                cout<<"\nEl vehiculo con el ID "<<datoBuscado<<" ha sido encontrado.\n";
+                 encontrado = true;
+                        cout<<"\nID: "<<actual->ID;
+                        cout<<"\nModelo: "<<actual->modelo;
+                        cout<<"\nAño: "<<actual->anio;
+                        cout<<"\nNo. de puertas: "<<actual->noPuertas;
+                        cout<<"\nColor: "<<actual->color;
+                        cout<<"\nPlacas: "<<actual->placas;
+                        cout<<"\nPropietario: "<<actual->propietario;
+                        cout<<"\nTenencia: "<<actual->tenencia;
+                        cout<<"\nInfracciones: "<<actual->infracciones;
+                        cout<<"\n----------------------------------------\n";
             }
-            encontrado = true;
+
+            if (encontrado == false){
+                cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
+                break;
+            }
         }
-        actual = actual->siguiente;
     }
-    if (!encontrado){
-        cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
-
-    }
-    }
-    else {
+    else{
         cout<<"\nLa lista esta vacia.\n";
-
     }
-    }
-    break; //FIN CASE 1 ID
+break;
+}//FIN CASE 1 ID
 /////////////////////////////////////////////////////////////////////////////////////////
 case 2: //CASE 2 AÑO
     {actual = primero;
@@ -256,182 +312,159 @@ case 2: //CASE 2 AÑO
     cin>>datoBuscado;
 
     if (primero != NULL){
-    while (actual != NULL && encontrado != true){
+        while (actual != NULL && encontrado != true){
 
-        if (actual->anio == datoBuscado){
-            cout<<"\nEl vehiculo con el año "<<datoBuscado<<" ha sido encontrado.\n";
-
-            vehiculo* actual = new vehiculo();
-            actual = primero;
-            if (primero != NULL){
-                while(actual != NULL){
-                    cout<<"\nID: "<<actual->ID;
-                    cout<<"\nModelo: "<<actual->modelo;
-                    cout<<"\nAño: "<<actual->anio;
-                    cout<<"\nNo. de puertas: "<<actual->noPuertas;
-                    cout<<"\nColor: "<<actual->color;
-                    cout<<"\nPlacas: "<<actual->placas;
-                    cout<<"\nPropietario: "<<actual->propietario;
-                    cout<<"\nTenencia: "<<actual->tenencia;
-                    cout<<"\nInfracciones: "<<actual->infracciones;
-                    cout<<"\n----------------------------------------";
+            if (actual->anio != datoBuscado && actual->siguiente != NULL){
                     actual = actual->siguiente;
-                }
             }
-            else {
-                cout<<"\nLa lista esta vacia. Por favor agrega vehiculos.";
+
+            if (actual->anio == datoBuscado){
+                cout<<"\nEl vehiculo con el año "<<datoBuscado<<" ha sido encontrado.\n";
+                encontrado = true;
+                        cout<<"\nID: "<<actual->ID;
+                        cout<<"\nModelo: "<<actual->modelo;
+                        cout<<"\nAño: "<<actual->anio;
+                        cout<<"\nNo. de puertas: "<<actual->noPuertas;
+                        cout<<"\nColor: "<<actual->color;
+                        cout<<"\nPlacas: "<<actual->placas;
+                        cout<<"\nPropietario: "<<actual->propietario;
+                        cout<<"\nTenencia: "<<actual->tenencia;
+                        cout<<"\nInfracciones: "<<actual->infracciones;
+                        cout<<"\n----------------------------------------\n";
             }
-            encontrado = true;
-        }
-        actual = actual->siguiente;
-    }
-    if (!encontrado){
-        cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
-    }
-    }
-    else {
+
+            if (encontrado == false){
+                cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
+                break;
+            }
+        }//while
+    }//if primero!=null
+    else{
         cout<<"\nLa lista esta vacia.\n";
     }
-    }
-    break; //FIN CASE 2 AÑO
+break; //FIN CASE 2 AÑO
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////
 case 3://CASE 3 NUMERO DE PUERTAS
-     {actual = primero;
-    int datoBuscado = 0;
+{actual = primero;
+int datoBuscado = 0;
     cout<<"Escribe el numero de puertas del vehiculo que quieres buscar: ";
     cin>>datoBuscado;
 
     if (primero != NULL){
-    while (actual != NULL && encontrado != true){
+        while (actual != NULL && encontrado != true){
 
-        if (actual->noPuertas == datoBuscado){
-            cout<<"\nEl vehiculo con el numero de puertas "<<datoBuscado<<" ha sido encontrado.\n";
-
-            vehiculo* actual = new vehiculo();
-            actual = primero;
-            if (primero != NULL){
-                while(actual != NULL){
-                    cout<<"\nID: "<<actual->ID;
-                    cout<<"\nModelo: "<<actual->modelo;
-                    cout<<"\nAño: "<<actual->anio;
-                    cout<<"\nNo. de puertas: "<<actual->noPuertas;
-                    cout<<"\nColor: "<<actual->color;
-                    cout<<"\nPlacas: "<<actual->placas;
-                    cout<<"\nPropietario: "<<actual->propietario;
-                    cout<<"\nTenencia: "<<actual->tenencia;
-                    cout<<"\nInfracciones: "<<actual->infracciones;
-                    cout<<"\n----------------------------------------";
+            if (actual->noPuertas != datoBuscado && actual->siguiente != NULL){
                     actual = actual->siguiente;
-                }
             }
-            else {
-                cout<<"\nLa lista esta vacia. Por favor agrega vehiculos.";
+
+            if (actual->noPuertas == datoBuscado){
+                cout<<"\nEl vehiculo con "<<datoBuscado<<" puertas ha sido encontrado.\n";
+                encontrado = true;
+                        cout<<"\nID: "<<actual->ID;
+                        cout<<"\nModelo: "<<actual->modelo;
+                        cout<<"\nAño: "<<actual->anio;
+                        cout<<"\nNo. de puertas: "<<actual->noPuertas;
+                        cout<<"\nColor: "<<actual->color;
+                        cout<<"\nPlacas: "<<actual->placas;
+                        cout<<"\nPropietario: "<<actual->propietario;
+                        cout<<"\nTenencia: "<<actual->tenencia;
+                        cout<<"\nInfracciones: "<<actual->infracciones;
+                        cout<<"\n----------------------------------------\n";
             }
-            encontrado = true;
-        }
-        actual = actual->siguiente;
-    }
-    if (!encontrado){
-        cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
-    }
-    }
-    else {
+
+            if (encontrado == false){
+                cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
+                break;
+            }
+        }//while
+    }//if primero!=null
+    else{
         cout<<"\nLa lista esta vacia.\n";
     }
-    break;
-} //FIN CASE 3
+break;
+} //FIN CASE 3 NO PUERTAS
+
 case 4: //CASE 4
-    {
-        actual = primero;
+{actual = primero;
     int datoBuscado = 0;
     cout<<"Escribe la cantidad de tenencia del vehiculo que quieres buscar: ";
     cin>>datoBuscado;
 
     if (primero != NULL){
-    while (actual != NULL && encontrado != true){
+        while (actual != NULL && encontrado != true){
 
-        if (actual->tenencia == datoBuscado){
-            cout<<"\nEl vehiculo con la cantidad de tenencia "<<datoBuscado<<" ha sido encontrado.\n";
-
-            vehiculo* actual = new vehiculo();
-            actual = primero;
-            if (primero != NULL){
-                while(actual != NULL){
-                    cout<<"\nID: "<<actual->ID;
-                    cout<<"\nModelo: "<<actual->modelo;
-                    cout<<"\nAño: "<<actual->anio;
-                    cout<<"\nNo. de puertas: "<<actual->noPuertas;
-                    cout<<"\nColor: "<<actual->color;
-                    cout<<"\nPlacas: "<<actual->placas;
-                    cout<<"\nPropietario: "<<actual->propietario;
-                    cout<<"\nTenencia: "<<actual->tenencia;
-                    cout<<"\nInfracciones: "<<actual->infracciones;
-                    cout<<"\n----------------------------------------";
+            if (actual->tenencia != datoBuscado && actual->siguiente != NULL){
                     actual = actual->siguiente;
-                }
             }
-            else {
-                cout<<"\nLa lista esta vacia. Por favor agrega vehiculos.";
+
+            if (actual->tenencia == datoBuscado){
+                cout<<"\nEl vehiculo con la tenencia de "<<datoBuscado<<" ha sido encontrado.\n";
+                encontrado = true;
+                        cout<<"\nID: "<<actual->ID;
+                        cout<<"\nModelo: "<<actual->modelo;
+                        cout<<"\nAño: "<<actual->anio;
+                        cout<<"\nNo. de puertas: "<<actual->noPuertas;
+                        cout<<"\nColor: "<<actual->color;
+                        cout<<"\nPlacas: "<<actual->placas;
+                        cout<<"\nPropietario: "<<actual->propietario;
+                        cout<<"\nTenencia: "<<actual->tenencia;
+                        cout<<"\nInfracciones: "<<actual->infracciones;
+                        cout<<"\n----------------------------------------\n";
             }
-            encontrado = true;
-        }
-        actual = actual->siguiente;
-    }
-    if (!encontrado){
-        cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
-    }
-    }
-    else {
+
+            if (encontrado == false){
+                cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
+                break;
+            }
+        }//while
+    }//if primero!=null
+    else{
         cout<<"\nLa lista esta vacia.\n";
     }
-    break;
-    } //FIN CASE 4 TENENCIA
+break;
+} //FIN CASE 4 TENENCIA
 case 5: //CASE 5
-    {
-    actual = primero;
+{actual = primero;
     int datoBuscado = 0;
     cout<<"Escribe el numero de infracciones del vehiculo que quieres buscar: ";
     cin>>datoBuscado;
 
     if (primero != NULL){
-    while (actual != NULL && encontrado != true){
+        while (actual != NULL && encontrado != true){
 
-        if (actual->infracciones == datoBuscado){
-            cout<<"\nEl vehiculo con el numero de infracciones "<<datoBuscado<<" ha sido encontrado.\n";
-
-            vehiculo* actual = new vehiculo();
-            actual = primero;
-            if (primero != NULL){
-                while(actual != NULL){
-                    cout<<"\nID: "<<actual->ID;
-                    cout<<"\nModelo: "<<actual->modelo;
-                    cout<<"\nAño: "<<actual->anio;
-                    cout<<"\nNo. de puertas: "<<actual->noPuertas;
-                    cout<<"\nColor: "<<actual->color;
-                    cout<<"\nPlacas: "<<actual->placas;
-                    cout<<"\nPropietario: "<<actual->propietario;
-                    cout<<"\nTenencia: "<<actual->tenencia;
-                    cout<<"\nInfracciones: "<<actual->infracciones;
-                    cout<<"\n----------------------------------------";
+            if (actual->infracciones != datoBuscado && actual->siguiente != NULL){
                     actual = actual->siguiente;
-                }
             }
-            else {
-                cout<<"\nLa lista esta vacia. Por favor agrega vehiculos.";
+
+            if (actual->infracciones == datoBuscado){
+                cout<<"\nEl vehiculo con "<<datoBuscado<<" infracciones ha sido encontrado.\n";
+                encontrado = true;
+                        cout<<"\nID: "<<actual->ID;
+                        cout<<"\nModelo: "<<actual->modelo;
+                        cout<<"\nAño: "<<actual->anio;
+                        cout<<"\nNo. de puertas: "<<actual->noPuertas;
+                        cout<<"\nColor: "<<actual->color;
+                        cout<<"\nPlacas: "<<actual->placas;
+                        cout<<"\nPropietario: "<<actual->propietario;
+                        cout<<"\nTenencia: "<<actual->tenencia;
+                        cout<<"\nInfracciones: "<<actual->infracciones;
+                        cout<<"\n----------------------------------------\n";
             }
-            encontrado = true;
-        }
-        actual = actual->siguiente;
-    }
-    if (!encontrado){
-        cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
-    }
-    }
-    else {
+
+            if (encontrado == false){
+                cout<<"\nEl vehiculo no pudo ser encontrado.\n\n";
+                break;
+            }
+        }//while
+    }//if primero!=null
+    else{
         cout<<"\nLa lista esta vacia.\n";
     }
-    break;
-    }
+break;
+}//FIN CASE 5 INFRACCIONES
+
 default:
     cout<<"\nOpcion no valida. Introduce una opcion valida.\n";
 }//FIN SWITCH
@@ -501,6 +534,7 @@ system("cls");
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 int main(){ //Función main
+setlocale(LC_ALL, "");
 int operacion;
 	//Declarar Variables
     do {
