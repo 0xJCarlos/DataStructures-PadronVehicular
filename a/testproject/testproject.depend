@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1623639411 source:c:\users\zenny\onedrive\escritorio\proyecto final\proyectofinal.cpp
+	<iostream>
+	<locale.h>
+	<stdexcept>
+	<limits>
+
